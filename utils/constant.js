@@ -1,0 +1,38 @@
+const data = {
+    coinCollection: 'dumping',
+    cronExpression: '0 56 3 * * *',
+    coinGeckoDateFormat: 'DD-MM-YYYY',
+    coinList: [
+            "celo-euro",
+            "celo-dollar",
+            "celo",
+            "ubeswap",
+            "bitcoin",
+            "moola-market",
+            "mobius",
+            "weth",
+            "wrapped-bitcoin",
+            "knoxedge",
+            "poofcash",
+            "resource-protocol",
+            "solana",
+            "truefeedbackchain",
+            "premio",
+            "usd-coin",
+            "chubbyakita",
+            "chubbydoge",
+            "allbridge",
+            "compound-ether",
+            "saber",
+            "fantom",
+            "avalanche-2",
+            "wmatic",
+            "binancecoin",
+            "aave",
+            "curve-dao-token",
+            "celostarter",
+            "sushi",
+            "moola-celo-atoken"]
+};
+
+module.exports = data;
