@@ -1,7 +1,10 @@
 const coinGecko = require('coingecko-api-v3');
 const moment = require('moment');
-const { coinGeckoDateFormat, coinList } = require('../utils/constant');
+const fireStore = require("firebase/firestore/lite");
+const db = require("../config/firebase");
+const { coinGeckoDateFormat, coinList, coinCollection } = require('../utils/constant');
 
+const batch = fireStore.writeBatch(db);
 const client = new coinGecko.CoinGeckoClient({
   timeout: 10000,
   autoRetry: true,
@@ -12,7 +15,7 @@ const getCoinGeckoData = async () => {
     .subtract(1, 'day')
     .format(coinGeckoDateFormat);
 
-  const result = await Promise.all(
+  const coinHistory = await Promise.all(
     coinList.map(async (id) => {
       const historyData = await client.coinIdHistory({
         id: id,
@@ -22,26 +25,25 @@ const getCoinGeckoData = async () => {
 
       return {
         id: id,
-        USD: marketDataObject ? marketDataObject.current_price.usd : 0,
-        GBP: marketDataObject ? marketDataObject.current_price.gbp : 0,
+        usd: marketDataObject ? marketDataObject.current_price.usd : 0,
+        gbp: marketDataObject ? marketDataObject.current_price.gbp : 0,
       };
     })
   );
+  return coinHistory;
+}
 
-  let dumpingData = [];
 
-  for (let element of result) {
-    dumpingData[element.id] = {
-      usd: element.usd,
-      gbp: element.gbp,
-    };
-  }
+const dumpCoinDataInDb = async (data) => {
+    for (let element of data) {
+        const elementRef = fireStore.doc(db, coinCollection, element.id);
+        batch.set(elementRef, {USD: element.usd, GBP: element.gbp});
+    }
 
-  console.log(dumpingData);
-
-  return dumpingData;
+    await batch.commit();
 }
 
 module.exports = {
-  getCoinGeckoData
+  getCoinGeckoData,
+  dumpCoinDataInDb
 };

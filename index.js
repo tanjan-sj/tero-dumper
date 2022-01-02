@@ -1,6 +1,6 @@
 const app = require('./app');
 const http = require('http');
-const {dumpCoinDataInDb} = require('./services/scheduler');
+const {schedulerForDumpingData} = require('./services/scheduler');
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -51,6 +51,6 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
-server.listen(port, () => {dumpCoinDataInDb.start()});
+server.listen(port, () => {schedulerForDumpingData.start()});
 server.on('error', onError);
 server.on('listening', onListening);
