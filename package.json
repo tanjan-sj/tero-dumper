@@ -1,0 +1,28 @@
+{
+  "name": "tero-dumper",
+  "version": "1.0.0",
+  "description": "dumping data to firebase from coingecko history api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanjan-sj/tero-dumper.git"
+  },
+  "author": "Umme Sumaya Jannat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanjan-sj/tero-dumper/issues"
+  },
+  "homepage": "https://github.com/tanjan-sj/tero-dumper#readme",
+  "dependencies": {
+    "coingecko-api-v3": "0.0.13",
+    "cron": "^1.8.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "firebase": "^9.6.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1"
+  }
+}
